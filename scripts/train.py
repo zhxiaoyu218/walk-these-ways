@@ -8,6 +8,10 @@ def train_go1(headless=True):
     from go1_gym.envs.go1.go1_config import config_go1
     from go1_gym.envs.go1.velocity_tracking import VelocityTrackingEasyEnv
 
+    from go1_gym.envs.go1_fw.go1_fw_config import config_go1_fw
+    from go1_gym.envs.go1_fw.go1_fw import Go1Fw
+
+
     from ml_logger import logger
 
     from go1_gym_learn.ppo_cse import Runner
@@ -204,8 +208,8 @@ def train_go1(headless=True):
     Cfg.commands.binary_phases = True
     Cfg.commands.gaitwise_curricula = True
 
-    env = VelocityTrackingEasyEnv(sim_device='cuda:0', headless=False, cfg=Cfg)
-
+    # env = VelocityTrackingEasyEnv(sim_device='cuda:0', headless=False, cfg=Cfg)
+    env = Go1Fw(sim_device='cuda:0', headless=False, cfg=Cfg)
     # log the experiment parameters
     logger.log_params(AC_Args=vars(AC_Args), PPO_Args=vars(PPO_Args), RunnerArgs=vars(RunnerArgs),
                       Cfg=vars(Cfg))
